@@ -17,10 +17,15 @@ function App() {
     setPosts([...posts, post]);
   }
 
+  function savePost(post) {
+    let otherPosts = posts.filter(p => p.id !== post.id);
+    setPosts([...otherPosts, post]);
+  }
+
   return (
     <div className="App">
       <NavHeader />
-      <Routes posts={posts} addPost={addPost} />
+      <Routes posts={posts} addPost={addPost} savePost={savePost} />
     </div>
   );
 }

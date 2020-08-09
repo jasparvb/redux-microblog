@@ -4,7 +4,7 @@ import NewPostForm from "./NewPostForm";
 import PostDetails from "./PostDetails";
 import PostList from "./PostList";
 
-function Routes({addPost, posts}) {
+function Routes({addPost, savePost, posts}) {
     return (
         <Switch>
             <Route path="/" exact>
@@ -14,7 +14,7 @@ function Routes({addPost, posts}) {
                 <NewPostForm addPost={addPost} />
             </Route>
             <Route path="/:id" exact>
-                <PostDetails addPost={addPost} posts={posts} />
+                <PostDetails savePost={savePost} posts={posts} />
             </Route>
             <Redirect to="/" />
         </Switch>

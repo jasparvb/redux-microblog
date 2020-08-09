@@ -3,7 +3,7 @@ import { Redirect, useParams, Link } from "react-router-dom";
 import NewPostForm from "./NewPostForm";
 
 
-function PostDetails({posts, addPost}) {
+function PostDetails({posts, savePost}) {
     const { id } = useParams();
     const [editMode, setEditMode] = useState(false);
     
@@ -17,7 +17,7 @@ function PostDetails({posts, addPost}) {
     }
 
     if(editMode) {
-        return <NewPostForm addPost={addPost} post={post}/>;
+        return <NewPostForm addPost={savePost} post={post}/>;
     }
   
     return (
