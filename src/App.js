@@ -13,7 +13,7 @@ function App() {
 
   const [posts, setPosts] = useState(INITIAL_STATE);
   
-  const addPost = (post) => {
+  function addPost(post) {
     setPosts([...posts, post]);
   }
 

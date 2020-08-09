@@ -1,11 +1,24 @@
-import React from "react";
+import React, {useState} from "react";
 import { Redirect, useParams, Link } from "react-router-dom";
+import NewPostForm from "./NewPostForm";
 
 
-function PostDetails({posts}) {
+function PostDetails({posts, addPost}) {
     const { id } = useParams();
+    const [editMode, setEditMode] = useState(false);
+    
     let post = posts.find(post => post.id === id);
-    if (!post) return <Redirect to="/" />;
+    if (!post) {
+        return <Redirect to="/" />;
+    }
+
+    function toggleEdit() {
+        editMode ? setEditMode(false) : setEditMode(true);
+    }
+
+    if(editMode) {
+        return <NewPostForm addPost={addPost} post={post}/>;
+    }
   
     return (
         <div className="PostDetails">
@@ -13,7 +26,7 @@ function PostDetails({posts}) {
                 <Link to="/" className="float-right mx-3">
                     <i className="far fa-trash-alt fa-2x text-danger" />
                 </Link>
-                <Link to="/" className="float-right">
+                <Link onClick={toggleEdit} className="float-right">
                     <i className="far fa-edit fa-2x text-primary" />
                 </Link>
                 <h3 className="card-title d-flex justify-content-between">

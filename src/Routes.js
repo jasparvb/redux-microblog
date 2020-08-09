@@ -14,7 +14,7 @@ function Routes({addPost, posts}) {
                 <NewPostForm addPost={addPost} />
             </Route>
             <Route path="/:id" exact>
-                <PostDetails posts={posts} />
+                <PostDetails addPost={addPost} posts={posts} />
             </Route>
             <Redirect to="/" />
         </Switch>

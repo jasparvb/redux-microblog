@@ -4,20 +4,22 @@ import { v4 as uuid } from "uuid";
 import Alert from "./Alert";
 import { Link } from "react-router-dom";
 
-function NewPostForm({addPost, id = null}) {
+function NewPostForm({addPost, post = null}) {
+    
     const INITIAL_STATE = { 
         title: "",
         description: "",
         body: ""
     };
 
-    const [postData, setPostData] = useState(INITIAL_STATE);
+    const [postData, setPostData] = useState(post ? post : INITIAL_STATE);
     const history = useHistory();
 
    
     async function handleSubmit(evt) {
         evt.preventDefault();
-        addPost({ ...postData, id: uuid() });
+        post ? addPost(postData)
+        : addPost({ ...postData, id: uuid() });
         history.push("/");
     };
   
