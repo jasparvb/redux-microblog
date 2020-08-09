@@ -5,7 +5,7 @@ import Routes from './Routes';
 
 function App() {
   const INITIAL_STATE = [{
-    id: 12,
+    id: "12fasdjhkfa-12312312",
     title: "This is a Blog Title",
     description: "This is the subtitle",
     body: "Hello world lskjrosiej lrskjelr"
@@ -13,7 +13,7 @@ function App() {
 
   const [posts, setPosts] = useState(INITIAL_STATE);
   
-  function addPost(post) {
+  const addPost = (post) => {
     setPosts([...posts, post]);
   }
 

@@ -4,7 +4,7 @@ import { Redirect, useParams, Link } from "react-router-dom";
 
 function PostDetails({posts}) {
     const { id } = useParams();
-    let post = posts.find(post => post.id === +id);
+    let post = posts.find(post => post.id === id);
     if (!post) return <Redirect to="/" />;
   
     return (
