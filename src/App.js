@@ -16,6 +16,7 @@ function App() {
   function addPost(post) {
     setPosts([...posts, post]);
   }
+
   return (
     <div className="App">
       <NavHeader />
