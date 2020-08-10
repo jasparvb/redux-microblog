@@ -8,7 +8,12 @@ function App() {
     id: "12fasdjhkfa-12312312",
     title: "This is a Blog Title",
     description: "This is the subtitle",
-    body: "Hello world lskjrosiej lrskjelr"
+    body: "Hello world lskjrosiej lrskjelr",
+    comments: [
+      {id: "2342340-23dslkj3lkj", text:"This is a cool blog"},
+      {id: "2342340-23dslkj3l323", text:"Messi is the GOAT"},
+      {id: "2342340-23dslkj3l53561", text:"Awesome post"}q
+    ]
   }];
 
   const [posts, setPosts] = useState(INITIAL_STATE);

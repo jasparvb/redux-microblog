@@ -38,6 +38,9 @@ function PostDetails({posts, savePost, deletePost}) {
                 </h3>
                 <h4>{post.description}</h4>
                 <p>{post.body}</p>
+                <hr/>
+                <h3>Comments</h3>
+                {post.comments.map(c => <p key={c.id}>{c.text}</p>)}
             </div>
         </div>
     );
