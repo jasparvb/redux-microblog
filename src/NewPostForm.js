@@ -9,7 +9,8 @@ function NewPostForm({addPost, post = null}) {
     const INITIAL_STATE = { 
         title: "",
         description: "",
-        body: ""
+        body: "",
+        comments: []
     };
 
     const [postData, setPostData] = useState(post ? post : INITIAL_STATE);

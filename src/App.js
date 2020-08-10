@@ -32,6 +32,14 @@ function App() {
     setPosts([...otherPosts]);
   }
 
+  function addComment(post_id, comment) {
+    let otherPosts = posts.filter(p => p.id !== post_id);
+    let post = posts.find(p => p.id === post_id);
+    post.comments.push(comment);
+    
+    setPosts([...otherPosts, post]);
+  }
+
   function deleteComment(post_id, id) {
     let otherPosts = posts.filter(p => p.id !== post_id);
     let post = posts.find(p => p.id === post_id);
@@ -49,6 +57,7 @@ function App() {
         addPost={addPost} 
         savePost={savePost} 
         deletePost={deletePost}
+        addComment={addComment}
         deleteComment={deleteComment}
       />
     </div>

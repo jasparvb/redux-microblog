@@ -2,9 +2,10 @@ import React, {useState} from "react";
 import { Redirect, useParams, useHistory } from "react-router-dom";
 import NewPostForm from "./NewPostForm";
 import Comment from "./PostComment";
+import PostCommentForm from "./PostCommentForm";
 
 
-function PostDetails({posts, savePost, deletePost, deleteComment}) {
+function PostDetails({posts, savePost, deletePost, addComment, deleteComment}) {
     const { id } = useParams();
     const [editMode, setEditMode] = useState(false);
     const history = useHistory();
@@ -50,6 +51,7 @@ function PostDetails({posts, savePost, deletePost, deleteComment}) {
                     deleteComment={deleteComment} 
                   />
                 )}
+                <PostCommentForm post_id={id} addComment={addComment} />
             </div>
         </div>
     );
