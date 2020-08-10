@@ -1,17 +1,21 @@
 import React, {useState} from "react";
-import { Redirect, useParams, Link } from "react-router-dom";
+import { Redirect, useParams, useHistory } from "react-router-dom";
 import NewPostForm from "./NewPostForm";
 
 
-function PostDetails({posts, savePost}) {
+function PostDetails({posts, savePost, deletePost}) {
     const { id } = useParams();
     const [editMode, setEditMode] = useState(false);
-    
+    const history = useHistory();
+
     let post = posts.find(post => post.id === id);
     if (!post) {
         return <Redirect to="/" />;
     }
-
+    function handleDelete() {
+        deletePost(id);
+        history.push("/");
+    }
     function toggleEdit() {
         editMode ? setEditMode(false) : setEditMode(true);
     }
@@ -23,12 +27,12 @@ function PostDetails({posts, savePost}) {
     return (
         <div className="PostDetails">
             <div className="container text-left">
-                <Link to="/" className="float-right mx-3">
+                <button onClick={handleDelete} className="float-right mx-3">
                     <i className="far fa-trash-alt fa-2x text-danger" />
-                </Link>
-                <Link onClick={toggleEdit} className="float-right">
+                </button>
+                <button onClick={toggleEdit} className="float-right">
                     <i className="far fa-edit fa-2x text-primary" />
-                </Link>
+                </button>
                 <h3 className="card-title d-flex justify-content-between">
                     {post.title}
                 </h3>

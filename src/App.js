@@ -22,10 +22,20 @@ function App() {
     setPosts([...otherPosts, post]);
   }
 
+  function deletePost(id) {
+    let otherPosts = posts.filter(p => p.id !== id);
+    setPosts([...otherPosts]);
+  }
+
   return (
     <div className="App">
       <NavHeader />
-      <Routes posts={posts} addPost={addPost} savePost={savePost} />
+      <Routes 
+        posts={posts} 
+        addPost={addPost} 
+        savePost={savePost} 
+        deletePost={deletePost}
+      />
     </div>
   );
 }
