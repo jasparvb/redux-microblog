@@ -12,7 +12,7 @@ function App() {
     comments: [
       {id: "2342340-23dslkj3lkj", text:"This is a cool blog"},
       {id: "2342340-23dslkj3l323", text:"Messi is the GOAT"},
-      {id: "2342340-23dslkj3l53561", text:"Awesome post"}q
+      {id: "2342340-23dslkj3l53561", text:"Awesome post"},
     ]
   }];
 
@@ -32,6 +32,15 @@ function App() {
     setPosts([...otherPosts]);
   }
 
+  function deleteComment(post_id, id) {
+    let otherPosts = posts.filter(p => p.id !== post_id);
+    let post = posts.find(p => p.id === post_id);
+    let comments = post.comments.filter(c => c.id !== id);
+    let newPost = {...post, comments};
+    
+    setPosts([...otherPosts, newPost]);
+  }
+
   return (
     <div className="App">
       <NavHeader />
@@ -40,6 +49,7 @@ function App() {
         addPost={addPost} 
         savePost={savePost} 
         deletePost={deletePost}
+        deleteComment={deleteComment}
       />
     </div>
   );

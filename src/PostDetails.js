@@ -1,9 +1,10 @@
 import React, {useState} from "react";
 import { Redirect, useParams, useHistory } from "react-router-dom";
 import NewPostForm from "./NewPostForm";
+import Comment from "./PostComment";
 
 
-function PostDetails({posts, savePost, deletePost}) {
+function PostDetails({posts, savePost, deletePost, deleteComment}) {
     const { id } = useParams();
     const [editMode, setEditMode] = useState(false);
     const history = useHistory();
@@ -40,7 +41,15 @@ function PostDetails({posts, savePost, deletePost}) {
                 <p>{post.body}</p>
                 <hr/>
                 <h3>Comments</h3>
-                {post.comments.map(c => <p key={c.id}>{c.text}</p>)}
+                {post.comments.map(c => 
+                  <Comment 
+                    key={c.id} 
+                    id={c.id} 
+                    post_id={id}
+                    text={c.text} 
+                    deleteComment={deleteComment} 
+                  />
+                )}
             </div>
         </div>
     );
