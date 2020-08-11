@@ -10,7 +10,7 @@ import { removePost } from './actions';
 
 function PostDetails() {
     const { id } = useParams();
-    const post = useSelector(state => (state.posts[id]));
+    const post = useSelector(state => state.posts[id]);
     const dispatch = useDispatch();
 
     const [editMode, setEditMode] = useState(false);
