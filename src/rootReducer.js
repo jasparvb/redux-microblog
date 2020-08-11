@@ -24,6 +24,16 @@ function rootReducer(state = INITIAL_STATE, action) {
       delete postsCopy[action.id];
       return { ...state, posts: postsCopy };
     }
+    case ADD_COMMENT: {
+      const postsCopy = { ...state.posts };
+      postsCopy[action.post_id].comments[action.id] = action.comment;
+      return { ...state, posts: postsCopy };
+    }
+    case REMOVE_COMMENT: {
+      const postsCopy = { ...state.posts };
+      delete postsCopy[action.post_id].comments[action.id];
+      return { ...state, posts: postsCopy };
+    }
       
     default:
       return state;
