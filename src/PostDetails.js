@@ -3,27 +3,34 @@ import { Redirect, useParams, useHistory } from "react-router-dom";
 import NewPostForm from "./NewPostForm";
 import Comment from "./PostComment";
 import PostCommentForm from "./PostCommentForm";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { removePost } from './actions';
 
 
-function PostDetails({posts, savePost, deletePost, addComment, deleteComment}) {
+function PostDetails() {
     const { id } = useParams();
+    const post = useSelector(state => (state.posts[id]));
+    const dispatch = useDispatch();
+
     const [editMode, setEditMode] = useState(false);
     const history = useHistory();
 
-    let post = posts.find(post => post.id === id);
     if (!post) {
         return <Redirect to="/" />;
     }
+
     function handleDelete() {
-        deletePost(id);
+        dispatch(removePost(id));
         history.push("/");
     }
+
     function toggleEdit() {
         editMode ? setEditMode(false) : setEditMode(true);
     }
 
     if(editMode) {
-        return <NewPostForm addPost={savePost} post={post}/>;
+        return <NewPostForm post_id={id} post={post} />;
     }
   
     return (
@@ -42,16 +49,15 @@ function PostDetails({posts, savePost, deletePost, addComment, deleteComment}) {
                 <p>{post.body}</p>
                 <hr/>
                 <h3>Comments</h3>
-                {post.comments.map(c => 
+                {Object.keys(post.comments).map(c_id => 
                   <Comment 
-                    key={c.id} 
-                    id={c.id} 
+                    key={c_id} 
+                    id={c_id} 
                     post_id={id}
-                    text={c.text} 
-                    deleteComment={deleteComment} 
+                    text={post.comments[c_id].text} 
                   />
                 )}
-                <PostCommentForm post_id={id} addComment={addComment} />
+                <PostCommentForm post_id={id} />
             </div>
         </div>
     );
