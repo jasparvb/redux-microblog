@@ -1,4 +1,4 @@
-import { ADD_POST, REMOVE_POST, ADD_COMMENT, REMOVE_COMMENT } from "./actionTypes";
+import { ADD_POST, UPDATE_POST, REMOVE_POST, ADD_COMMENT, REMOVE_COMMENT } from "./actionTypes";
 
 const INITIAL_STATE = {posts: {"1294u0239-12423523": {
     title: "This is a Blog Title",
@@ -15,6 +15,11 @@ const INITIAL_STATE = {posts: {"1294u0239-12423523": {
 function rootReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
     case ADD_POST: {
+      const postsCopy = { ...state.posts };
+      postsCopy[action.id] = action.post;
+      return { ...state, posts: postsCopy };
+    }
+    case UPDATE_POST: {
       const postsCopy = { ...state.posts };
       postsCopy[action.id] = action.post;
       return { ...state, posts: postsCopy };

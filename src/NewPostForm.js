@@ -1,26 +1,27 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { v4 as uuid } from "uuid";
 import Alert from "./Alert";
-import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addPost, updatePost } from './actions';
 
-function NewPostForm({addPost, post = null}) {
+function NewPostForm({post_id = null, post = null}) {
     
     const INITIAL_STATE = { 
         title: "",
         description: "",
         body: "",
-        comments: []
+        comments: {}
     };
 
     const [postData, setPostData] = useState(post ? post : INITIAL_STATE);
     const history = useHistory();
-
+    const dispatch = useDispatch();
    
     async function handleSubmit(evt) {
         evt.preventDefault();
-        post ? addPost(postData)
-        : addPost({ ...postData, id: uuid() });
+        post_id ? dispatch(updatePost(post_id, postData))
+        : dispatch(addPost(uuid(), postData));
         history.push("/");
     };
   

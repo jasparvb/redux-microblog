@@ -1,8 +1,16 @@
-import { ADD_POST, REMOVE_POST, ADD_COMMENT, REMOVE_COMMENT } from "./actionTypes";
+import { ADD_POST, UPDATE_POST, REMOVE_POST, ADD_COMMENT, REMOVE_COMMENT } from "./actionTypes";
 
 export function addPost(id, post) {
     return {
         type: ADD_POST,
+        id,
+        post
+    };
+}
+
+export function updatePost(id, post) {
+    return {
+        type: UPDATE_POST,
         id,
         post
     };
