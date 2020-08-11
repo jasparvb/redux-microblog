@@ -23,19 +23,19 @@ export function removePost(id) {
     };
 }
 
-export function addComment(post_id, id, comment) {
+export function addComment(postId, id, comment) {
     return {
         type: ADD_COMMENT,
-        post_id,
+        postId,
         id,
         comment
     };
 }
 
-export function removeComment(post_id, id) {
+export function removeComment(postId, id) {
     return {
         type: REMOVE_COMMENT,
-        post_id,
+        postId,
         id
     };
 }

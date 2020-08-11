@@ -1,12 +1,9 @@
 import React from "react";
-import { useDispatch } from "react-redux";
-import { removeComment } from './actions';
 
-function PostComment({id, post_id, text}) {
-    const dispatch = useDispatch();
-
+function PostComment({id, text, deleteComment}) {
+    
     function handleDelete() {
-        dispatch(removeComment(post_id, id));
+        deleteComment(id)
     }
   
     return (

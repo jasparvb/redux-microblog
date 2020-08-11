@@ -3,9 +3,8 @@ import { Redirect, useParams, useHistory } from "react-router-dom";
 import NewPostForm from "./NewPostForm";
 import Comment from "./PostComment";
 import PostCommentForm from "./PostCommentForm";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
-import { removePost } from './actions';
+import { useSelector, useDispatch } from "react-redux";
+import { removePost, addComment, removeComment } from './actions';
 
 
 function PostDetails() {
@@ -25,12 +24,20 @@ function PostDetails() {
         history.push("/");
     }
 
+    function addNewComment(commentId, text) {
+        dispatch(addComment(id, commentId, text));
+    }
+
+    function deleteComment(commentId) {
+        dispatch(removeComment(id, commentId));
+    }
+
     function toggleEdit() {
         editMode ? setEditMode(false) : setEditMode(true);
     }
 
     if(editMode) {
-        return <NewPostForm post_id={id} post={post} />;
+        return <NewPostForm postId={id} post={post} />;
     }
   
     return (
@@ -49,15 +56,15 @@ function PostDetails() {
                 <p>{post.body}</p>
                 <hr/>
                 <h3>Comments</h3>
-                {Object.keys(post.comments).map(c_id => 
+                {Object.keys(post.comments).map(cId => 
                   <Comment 
-                    key={c_id} 
-                    id={c_id} 
-                    post_id={id}
-                    text={post.comments[c_id].text} 
+                    key={cId} 
+                    id={cId} 
+                    text={post.comments[cId].text}
+                    deleteComment={deleteComment}
                   />
                 )}
-                <PostCommentForm post_id={id} />
+                <PostCommentForm addNewComment={addNewComment} />
             </div>
         </div>
     );

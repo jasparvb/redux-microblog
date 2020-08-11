@@ -1,6 +1,7 @@
 import { ADD_POST, UPDATE_POST, REMOVE_POST, ADD_COMMENT, REMOVE_COMMENT } from "./actionTypes";
 
-const INITIAL_STATE = {posts: {"1294u0239-12423523": {
+const INITIAL_STATE = {
+  posts: {"1294u0239-12423523": {
     title: "This is a Blog Title",
     description: "This is the subtitle",
     body: "Hello world lskjrosiej lrskjelr",
@@ -15,14 +16,20 @@ const INITIAL_STATE = {posts: {"1294u0239-12423523": {
 function rootReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
     case ADD_POST: {
-      const postsCopy = { ...state.posts };
-      postsCopy[action.id] = action.post;
-      return { ...state, posts: postsCopy };
+      return {
+        ...state,
+        posts: {
+          ...state.posts,
+          [action.id]: action.post
+       }};
     }
     case UPDATE_POST: {
-      const postsCopy = { ...state.posts };
-      postsCopy[action.id] = action.post;
-      return { ...state, posts: postsCopy };
+      return {
+        ...state,
+        posts: {
+          ...state.posts,
+          [action.id]: action.post
+       }};
     }
     case REMOVE_POST: {
       const postsCopy = { ...state.posts };
@@ -30,14 +37,28 @@ function rootReducer(state = INITIAL_STATE, action) {
       return { ...state, posts: postsCopy };
     }
     case ADD_COMMENT: {
-      const postsCopy = { ...state.posts };
-      postsCopy[action.post_id].comments[action.id] = action.comment;
-      return { ...state, posts: postsCopy };
+      return {
+        ...state,
+        posts: {
+          ...state.posts,
+          [action.postId]: {...state.posts[action.postId],
+            comments: {...state.posts[action.postId].comments, [action.id]: action.comment}
+          }
+        }
+      };
     }
     case REMOVE_COMMENT: {
-      const postsCopy = { ...state.posts };
-      delete postsCopy[action.post_id].comments[action.id];
-      return { ...state, posts: postsCopy };
+      const commentsCopy = { ...state.posts[action.postId].comments };
+      delete commentsCopy[action.id];
+      return {
+        ...state,
+        posts: {
+          ...state.posts,
+          [action.postId]: {...state.posts[action.postId],
+            comments: commentsCopy
+          }
+        }
+      };
     }
       
     default:

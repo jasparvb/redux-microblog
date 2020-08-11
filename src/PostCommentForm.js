@@ -1,20 +1,17 @@
 import React, { useState } from "react";
 import { v4 as uuid } from "uuid";
-import { useDispatch } from "react-redux";
-import { addComment } from './actions';
 
-function NewPostForm({post_id}) {
+function NewPostForm({addNewComment}) {
     
     const INITIAL_STATE = { 
         text: ""
     };
 
     const [commentData, setCommentData] = useState(INITIAL_STATE);
-    const dispatch = useDispatch();
 
-    async function handleSubmit(evt) {
+    function handleSubmit(evt) {
         evt.preventDefault();
-        dispatch(addComment(post_id, uuid(), commentData));
+        addNewComment(uuid(), commentData);
         setCommentData(INITIAL_STATE);
     };
   
