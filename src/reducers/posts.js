@@ -40,7 +40,7 @@ function rootReducer(state = {}, action) {
       return {
           ...state,
           [action.postId]: { ...state[action.postId],
-            comments: [ ...state[action.postId].comments, ...action.comment ]
+            comments: [ ...state[action.postId].comments, action.comment ]
         }
       };
     case REMOVE_COMMENT:

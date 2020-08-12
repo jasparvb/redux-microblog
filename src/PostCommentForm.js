@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { v4 as uuid } from "uuid";
 
 function NewPostForm({addNewComment}) {
     
@@ -7,19 +6,19 @@ function NewPostForm({addNewComment}) {
         text: ""
     };
 
-    const [commentData, setCommentData] = useState(INITIAL_STATE);
+    const [text, setText] = useState(INITIAL_STATE);
 
     function handleSubmit(evt) {
         evt.preventDefault();
-        addNewComment(uuid(), commentData);
-        setCommentData(INITIAL_STATE);
+        addNewComment(text.text);
+        setText(INITIAL_STATE);
     };
   
     /** Update local state w/curr state of input elem */
   
     const handleChange = evt => {
       const { name, value } = evt.target;
-      setCommentData(fData => ({
+      setText(fData => ({
         ...fData,
         [name]: value
       }));
@@ -34,7 +33,7 @@ function NewPostForm({addNewComment}) {
                         type="text"
                         className="form-control" 
                         placeholder="New Comment"
-                        value={commentData.text} 
+                        value={text.text} 
                         onChange={handleChange}
                     />
                 </div>

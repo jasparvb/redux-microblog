@@ -53,11 +53,19 @@ export function removePost(id) {
   };
 }
 
-export function addComment(postId, id, comment) {
+export function addCommentToAPI(postId, text) {
+  return async function(dispatch) {
+    let res = await axios.post(`${API_URL}/posts/${postId}/comments`, {
+      text
+    });
+    dispatch(addComment(postId, res.data));
+  };
+}
+
+export function addComment(postId, comment) {
   return {
     type: ADD_COMMENT,
     postId,
-    id,
     comment
   };
 }
