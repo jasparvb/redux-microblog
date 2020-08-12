@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { addPostToAPI, updatePostInAPI } from './actions';
+import { addPostAPI, updatePostAPI } from './actions';
 
 function NewPostForm({post = null}) {
     
@@ -17,8 +17,8 @@ function NewPostForm({post = null}) {
    
     async function handleSubmit(evt) {
         evt.preventDefault();
-        post.id ? dispatch(updatePostInAPI(postData))
-        : dispatch(addPostToAPI(postData));
+        post.id ? dispatch(updatePostAPI(postData))
+        : dispatch(addPostAPI(postData));
         history.push("/");
     };
   

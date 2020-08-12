@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { getTitlesFromAPI } from "./actions"
+import { getTitlesAPI } from "./actions"
 
 function PostList() {
   const titles = useSelector(state => state.titles);
@@ -10,7 +10,7 @@ function PostList() {
 
   useEffect(() => {
     async function getTitles() {
-      await dispatch(getTitlesFromAPI());
+      await dispatch(getTitlesAPI());
       setIsLoading(false);
     }
 

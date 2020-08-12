@@ -4,7 +4,7 @@ import NewPostForm from "./NewPostForm";
 import Comment from "./PostComment";
 import PostCommentForm from "./PostCommentForm";
 import { useSelector, useDispatch } from "react-redux";
-import { getPostFromAPI, removePostInAPI, addCommentToAPI, removeComment } from './actions';
+import { getPostAPI, removePostAPI, addCommentAPI, removeCommentAPI } from './actions';
 
 
 function PostDetails() {
@@ -18,7 +18,7 @@ function PostDetails() {
     //only load post if it's not in state already
     useEffect(() => {
         async function getPost(){
-            dispatch(getPostFromAPI(postId))
+            dispatch(getPostAPI(postId))
         }
         if(!post) {
             getPost();
@@ -30,16 +30,16 @@ function PostDetails() {
     }
 
     function handleDelete() {
-        dispatch(removePostInAPI(postId));
+        dispatch(removePostAPI(postId));
         history.push("/");
     }
 
     function addNewComment(text) {
-        dispatch(addCommentToAPI(postId, text));
+        dispatch(addCommentAPI(postId, text));
     }
 
     function deleteComment(commentId) {
-        dispatch(removeComment(postId, commentId));
+        dispatch(removeCommentAPI(postId, commentId));
     }
 
     function toggleEdit() {

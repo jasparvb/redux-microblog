@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const API_URL = 'http://localhost:5000/api';
 
-export function addPostToAPI({title, description, body}) {
+export function addPostAPI({title, description, body}) {
   return async function(dispatch) {
     let res = await axios.post(`${API_URL}/posts`, {
       title,
@@ -21,7 +21,7 @@ export function addPost(post) {
   };
 }
 
-export function updatePostInAPI({id, title, description, body}) {
+export function updatePostAPI({id, title, description, body}) {
   return async function(dispatch) {
     let res = await axios.put(`${API_URL}/posts/${id}`, {
       title,
@@ -39,7 +39,7 @@ export function updatePost(post) {
   };
 }
 
-export function removePostInAPI(id) {
+export function removePostAPI(id) {
   return async function(dispatch) {
     await axios.delete(`${API_URL}/posts/${id}`);
     dispatch(removePost(id));
@@ -53,7 +53,7 @@ export function removePost(id) {
   };
 }
 
-export function addCommentToAPI(postId, text) {
+export function addCommentAPI(postId, text) {
   return async function(dispatch) {
     let res = await axios.post(`${API_URL}/posts/${postId}/comments`, {
       text
@@ -70,6 +70,13 @@ export function addComment(postId, comment) {
   };
 }
 
+export function removeCommentAPI(postId, id) {
+  return async function(dispatch) {
+    await axios.delete(`${API_URL}/posts/${postId}/comments/${id}`);
+    dispatch(removeComment(postId, id));
+  };
+}
+
 export function removeComment(postId, id) {
   return {
     type: REMOVE_COMMENT,
@@ -78,7 +85,7 @@ export function removeComment(postId, id) {
   };
 }
 
-export function getTitlesFromAPI() {
+export function getTitlesAPI() {
   return async function(dispatch) {
     let res = await axios.get(`${API_URL}/posts`);
     dispatch(gotTitles(res.data));
@@ -92,7 +99,7 @@ export function gotTitles(titles) {
   };
 }
 
-export function getPostFromAPI(postId) {
+export function getPostAPI(postId) {
   return async function(dispatch) {
     let res = await axios.get(`${API_URL}/posts/${postId}`);
     dispatch(gotPost(res.data));
