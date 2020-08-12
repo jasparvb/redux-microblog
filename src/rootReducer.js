@@ -1,4 +1,4 @@
-import { ADD_POST, UPDATE_POST, REMOVE_POST, ADD_COMMENT, REMOVE_COMMENT } from "./actionTypes";
+import { ADD_POST, UPDATE_POST, REMOVE_POST, ADD_COMMENT, REMOVE_COMMENT, LOAD_TITLES } from "./actionTypes";
 
 const INITIAL_STATE = {
   posts: {"1294u0239-12423523": {
@@ -11,7 +11,7 @@ const INITIAL_STATE = {
       "2342340-23dslkj3l53561": {text: "Awesome post"}
     }
   }
-}};
+}, titles: {}};
 
 function rootReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
@@ -60,7 +60,15 @@ function rootReducer(state = INITIAL_STATE, action) {
         }
       };
     }
-      
+    case LOAD_TITLES: {
+      return {
+        ...state,
+        titles: {
+          ...action.titles
+        }
+      };
+    }
+  
     default:
       return state;
   }
