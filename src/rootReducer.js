@@ -2,7 +2,7 @@ import { ADD_POST, UPDATE_POST, REMOVE_POST, ADD_COMMENT, REMOVE_COMMENT, LOAD_T
 
 const INITIAL_STATE = {
   posts: {}, 
-  titles: {}
+  titles: []
 };
 
 function rootReducer(state = INITIAL_STATE, action) {
@@ -20,8 +20,18 @@ function rootReducer(state = INITIAL_STATE, action) {
         ...state,
         posts: {
           ...state.posts,
-          [action.id]: action.post
-       }};
+          [action.post.id]: { 
+            ...action.post,
+            comments: []
+          }
+        }, titles: [
+          ...state.titles,
+          { id: action.post.id, 
+            title: action.post.title, 
+            description: action.post.description
+          }
+        ]
+      };
     }
     case UPDATE_POST: {
       return {

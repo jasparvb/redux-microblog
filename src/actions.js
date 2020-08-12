@@ -3,10 +3,20 @@ import axios from 'axios';
 
 const API_URL = 'http://localhost:5000/api';
 
-export function addPost(id, post) {
+export function addPostToAPI({title, description, body}) {
+  return async function(dispatch) {
+    let res = await axios.post(`${API_URL}/posts`, {
+      title,
+      description,
+      body
+    });
+    dispatch(addPost(res.data));
+  };
+}
+
+export function addPost(post) {
   return {
     type: ADD_POST,
-    id,
     post
   };
 }

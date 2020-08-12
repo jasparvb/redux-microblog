@@ -2,15 +2,14 @@ import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { v4 as uuid } from "uuid";
 import { useDispatch } from "react-redux";
-import { addPost, updatePost } from './actions';
+import { addPostToAPI, updatePost } from './actions';
 
 function NewPostForm({postId = null, post = null}) {
     
     const INITIAL_STATE = { 
         title: "",
         description: "",
-        body: "",
-        comments: {}
+        body: ""
     };
 
     const [postData, setPostData] = useState(post ? post : INITIAL_STATE);
@@ -20,7 +19,7 @@ function NewPostForm({postId = null, post = null}) {
     async function handleSubmit(evt) {
         evt.preventDefault();
         postId ? dispatch(updatePost(postId, postData))
-        : dispatch(addPost(uuid(), postData));
+        : dispatch(addPostToAPI(postData));
         history.push("/");
     };
   
