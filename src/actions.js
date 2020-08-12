@@ -39,6 +39,13 @@ export function updatePost(post) {
   };
 }
 
+export function removePostInAPI(id) {
+  return async function(dispatch) {
+    await axios.delete(`${API_URL}/posts/${id}`);
+    dispatch(removePost(id));
+  };
+}
+
 export function removePost(id) {
   return {
     type: REMOVE_POST,

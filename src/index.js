@@ -8,12 +8,12 @@ import * as serviceWorker from "./serviceWorker";
 import { Provider } from "react-redux";
 import { BrowserRouter, Route } from "react-router-dom";
 import { createStore, applyMiddleware } from "redux";
-import root from "./reducers/root";
+import rootReducer from "./reducers/root";
 import thunk from "redux-thunk";
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 const store = createStore(
-  root,
+  rootReducer,
   composeWithDevTools(
     applyMiddleware(thunk)
   )

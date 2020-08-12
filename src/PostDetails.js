@@ -4,7 +4,7 @@ import NewPostForm from "./NewPostForm";
 import Comment from "./PostComment";
 import PostCommentForm from "./PostCommentForm";
 import { useSelector, useDispatch } from "react-redux";
-import { getPostFromAPI, removePost, addComment, removeComment } from './actions';
+import { getPostFromAPI, removePostInAPI, addComment, removeComment } from './actions';
 
 
 function PostDetails() {
@@ -30,7 +30,7 @@ function PostDetails() {
     }
 
     function handleDelete() {
-        dispatch(removePost(postId));
+        dispatch(removePostInAPI(postId));
         history.push("/");
     }
 

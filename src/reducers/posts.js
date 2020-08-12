@@ -19,42 +19,25 @@ function rootReducer(state = {}, action) {
     case ADD_POST: {
       return {
         ...state,
-        posts: {
-          ...state.posts,
-          [action.post.id]: { 
-            ...action.post,
-            comments: []
-          }
-        }, titles: [
-          ...state.titles,
-          { id: action.post.id, 
-            title: action.post.title, 
-            description: action.post.description,
-            votes: action.post.votes
-          }
-        ]
+        [action.post.id]: { 
+          ...action.post,
+          comments: []
+        }
       };
     }
     case UPDATE_POST: {
       return {
         ...state,
-        posts: {
-          ...state.posts,
-          [action.id]: action.post
-        }, titles: 
-         state.titles.filter(title => title.id !== action.post.id ? title :
-          { id: action.post.id, 
-          title: action.post.title, 
-          description: action.post.description,
-          votes: action.post.votes
-         }
-        )
-      };
-    }
+        [action.post.id]: {
+          ...action.post,
+          comments: state[action.post.id].comments
+        }
+      }
+    };
     case REMOVE_POST: {
-      const postsCopy = { ...state.posts };
+      const postsCopy = { ...state };
       delete postsCopy[action.id];
-      return { ...state, posts: postsCopy };
+      return postsCopy;
     }
     case ADD_COMMENT: {
       return {

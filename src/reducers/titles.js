@@ -5,6 +5,9 @@ import {
   LOAD_TITLES
 } from "../actionTypes";
 
+function makeTitle({id, title, description, votes}) {
+  return {id, title, description, votes};
+}
 
 function rootReducer(state = [], action) {
   switch (action.type) {
@@ -22,14 +25,10 @@ function rootReducer(state = [], action) {
       ];
     }
     case UPDATE_POST: {
-      return (
-          state.map(title => title.id !== action.post.id ? title : { 
-            id: action.post.id, 
-            title: action.post.title, 
-            description: action.post.description,
-            votes: action.post.votes
-          }
-        )
+      console.log("running update post");
+      return state.map(title => title.id === action.post.id 
+        ? makeTitle(action.post)
+        : title 
       );
     }
     case REMOVE_POST: {
