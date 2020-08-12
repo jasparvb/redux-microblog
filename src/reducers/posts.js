@@ -10,13 +10,12 @@ import {
 
 function rootReducer(state = {}, action) {
   switch (action.type) {
-    case LOAD_POST: {
+    case LOAD_POST:
       return {
         ...state,
         [action.post.id]: action.post
       };
-    }
-    case ADD_POST: {
+    case ADD_POST:
       return {
         ...state,
         [action.post.id]: { 
@@ -24,46 +23,33 @@ function rootReducer(state = {}, action) {
           comments: []
         }
       };
-    }
-    case UPDATE_POST: {
+    case UPDATE_POST:
       return {
         ...state,
         [action.post.id]: {
           ...action.post,
           comments: state[action.post.id].comments
         }
-      }
-    };
+      };
     case REMOVE_POST: {
       const postsCopy = { ...state };
       delete postsCopy[action.id];
       return postsCopy;
     }
-    case ADD_COMMENT: {
+    case ADD_COMMENT:
       return {
-        ...state,
-        posts: {
-          ...state.posts,
-          [action.postId]: {...state.posts[action.postId],
-            comments: {...state.posts[action.postId].comments, [action.id]: action.comment}
-          }
+          ...state,
+          [action.postId]: { ...state[action.postId],
+            comments: [ ...state[action.postId].comments, ...action.comment ]
         }
       };
-    }
-    case REMOVE_COMMENT: {
-      const commentsCopy = { ...state.posts[action.postId].comments };
-      delete commentsCopy[action.id];
+    case REMOVE_COMMENT:
       return {
-        ...state,
-        posts: {
-          ...state.posts,
-          [action.postId]: {...state.posts[action.postId],
-            comments: commentsCopy
-          }
+          ...state,
+          [action.postId]: { ...state[action.postId],
+            comments: state[action.postId].comments.filter(c => c.id !== action.id)
         }
-      };
-    }
-  
+      };  
     default:
       return state;
   }

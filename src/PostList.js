@@ -18,7 +18,7 @@ function PostList() {
       getTitles();
     }
     
-  }, [dispatch, isLoading]);
+  }, [dispatch, isLoading, titles]);
   
   if (isLoading) return <h3><b>Loading...</b></h3>;
   
