@@ -1,35 +1,45 @@
-import React, {useState} from "react";
-import { Redirect, useParams, useHistory } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useParams, useHistory } from "react-router-dom";
 import NewPostForm from "./NewPostForm";
 import Comment from "./PostComment";
 import PostCommentForm from "./PostCommentForm";
 import { useSelector, useDispatch } from "react-redux";
-import { removePost, addComment, removeComment } from './actions';
+import { getPostFromAPI, removePost, addComment, removeComment } from './actions';
 
 
 function PostDetails() {
-    const { id } = useParams();
-    const post = useSelector(state => state.posts[id]);
+    const postId = Number(useParams().postId);
+    const post = useSelector(state => state.posts[postId]);
     const dispatch = useDispatch();
 
     const [editMode, setEditMode] = useState(false);
     const history = useHistory();
+    
+    //only load post if it's not in state already
+    useEffect(() => {
+        async function getPost(){
+            dispatch(getPostFromAPI(postId))
+        }
+        if(!post) {
+            getPost();
+        }
+    }, [dispatch, postId, post]);
 
     if (!post) {
-        return <Redirect to="/" />;
+        return <h3><b>Loading...</b></h3>;
     }
 
     function handleDelete() {
-        dispatch(removePost(id));
+        dispatch(removePost(postId));
         history.push("/");
     }
 
     function addNewComment(commentId, text) {
-        dispatch(addComment(id, commentId, text));
+        dispatch(addComment(postId, commentId, text));
     }
 
     function deleteComment(commentId) {
-        dispatch(removeComment(id, commentId));
+        dispatch(removeComment(postId, commentId));
     }
 
     function toggleEdit() {
@@ -37,7 +47,7 @@ function PostDetails() {
     }
 
     if(editMode) {
-        return <NewPostForm postId={id} post={post} />;
+        return <NewPostForm postId={postId} post={post} />;
     }
   
     return (
@@ -56,11 +66,11 @@ function PostDetails() {
                 <p>{post.body}</p>
                 <hr/>
                 <h3>Comments</h3>
-                {Object.keys(post.comments).map(cId => 
+                {post.comments.map(comment => 
                   <Comment 
-                    key={cId} 
-                    id={cId} 
-                    text={post.comments[cId].text}
+                    key={comment.id} 
+                    id={comment.id} 
+                    text={comment.text}
                     deleteComment={deleteComment}
                   />
                 )}

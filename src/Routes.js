@@ -13,7 +13,7 @@ function Routes() {
             <Route path="/new" exact>
                 <NewPostForm />
             </Route>
-            <Route path="/:id" exact>
+            <Route path="/:postId" exact>
                 <PostDetails />
             </Route>
             <Redirect to="/" />

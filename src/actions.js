@@ -1,4 +1,4 @@
-import { ADD_POST, UPDATE_POST, REMOVE_POST, ADD_COMMENT, REMOVE_COMMENT, LOAD_TITLES } from "./actionTypes";
+import { ADD_POST, UPDATE_POST, REMOVE_POST, ADD_COMMENT, REMOVE_COMMENT, LOAD_TITLES, LOAD_POST } from "./actionTypes";
 import axios from 'axios';
 
 const API_URL = 'http://localhost:5000/api';
@@ -54,5 +54,19 @@ export function gotTitles(titles) {
   return {
     type: LOAD_TITLES,
     titles
+  };
+}
+
+export function getPostFromAPI(postId) {
+  return async function(dispatch) {
+    let res = await axios.get(`${API_URL}/posts/${postId}`);
+    dispatch(gotPost(res.data));
+  };
+}
+
+export function gotPost(post) {
+  return {
+    type: LOAD_POST,
+    post
   };
 }
