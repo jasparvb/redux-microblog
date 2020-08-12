@@ -22,25 +22,18 @@ function rootReducer(state = [], action) {
       ];
     }
     case UPDATE_POST: {
-      return {
-        ...state,
-        posts: {
-          ...state.posts,
-          [action.id]: action.post
-        }, titles: 
-         state.titles.filter(title => title.id !== action.post.id ? title :
-          { id: action.post.id, 
-          title: action.post.title, 
-          description: action.post.description,
-          votes: action.post.votes
-         }
+      return (
+          state.map(title => title.id !== action.post.id ? title : { 
+            id: action.post.id, 
+            title: action.post.title, 
+            description: action.post.description,
+            votes: action.post.votes
+          }
         )
-      };
+      );
     }
     case REMOVE_POST: {
-      const postsCopy = { ...state.posts };
-      delete postsCopy[action.id];
-      return { ...state, posts: postsCopy };
+      return state.filter(title => title.id !== action.postId);
     }
     default:
       return state;
