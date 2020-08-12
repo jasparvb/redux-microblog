@@ -63,9 +63,9 @@ function rootReducer(state = INITIAL_STATE, action) {
     case LOAD_TITLES: {
       return {
         ...state,
-        titles: {
+        titles: [
           ...action.titles
-        }
+        ]
       };
     }
   
