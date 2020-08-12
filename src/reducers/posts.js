@@ -1,19 +1,20 @@
-import { ADD_POST, UPDATE_POST, REMOVE_POST, ADD_COMMENT, REMOVE_COMMENT, LOAD_TITLES, LOAD_POST } from "./actionTypes";
+import { 
+  ADD_POST, 
+  UPDATE_POST, 
+  REMOVE_POST, 
+  ADD_COMMENT, 
+  REMOVE_COMMENT,  
+  LOAD_POST 
+} from "../actionTypes";
 
-const INITIAL_STATE = {
-  posts: {}, 
-  titles: []
-};
 
-function rootReducer(state = INITIAL_STATE, action) {
+function rootReducer(state = {}, action) {
   switch (action.type) {
     case LOAD_POST: {
       return {
         ...state,
-        posts: {
-          ...state.posts,
-          [action.post.id]: action.post
-       }};
+        [action.post.id]: action.post
+      };
     }
     case ADD_POST: {
       return {
@@ -28,7 +29,8 @@ function rootReducer(state = INITIAL_STATE, action) {
           ...state.titles,
           { id: action.post.id, 
             title: action.post.title, 
-            description: action.post.description
+            description: action.post.description,
+            votes: action.post.votes
           }
         ]
       };
@@ -39,7 +41,15 @@ function rootReducer(state = INITIAL_STATE, action) {
         posts: {
           ...state.posts,
           [action.id]: action.post
-       }};
+        }, titles: 
+         state.titles.filter(title => title.id !== action.post.id ? title :
+          { id: action.post.id, 
+          title: action.post.title, 
+          description: action.post.description,
+          votes: action.post.votes
+         }
+        )
+      };
     }
     case REMOVE_POST: {
       const postsCopy = { ...state.posts };
@@ -68,14 +78,6 @@ function rootReducer(state = INITIAL_STATE, action) {
             comments: commentsCopy
           }
         }
-      };
-    }
-    case LOAD_TITLES: {
-      return {
-        ...state,
-        titles: [
-          ...action.titles
-        ]
       };
     }
   

@@ -21,10 +21,20 @@ export function addPost(post) {
   };
 }
 
-export function updatePost(id, post) {
+export function updatePostInAPI({id, title, description, body}) {
+  return async function(dispatch) {
+    let res = await axios.put(`${API_URL}/posts/${id}`, {
+      title,
+      description,
+      body
+    });
+    dispatch(addPost(res.data));
+  };
+}
+
+export function updatePost(post) {
   return {
     type: UPDATE_POST,
-    id,
     post
   };
 }
