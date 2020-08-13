@@ -28,7 +28,7 @@ function PostList() {
   
   if (!isLoading && !titles.length) return <h1>You don't have any posts yet</h1>;
   
-  const postCards = titles.map(title => (
+  const postCards = titles.sort((a, b) => b.votes - a.votes).map(title => (
     <div key={title.id} className="Card card my-2" >
       <div className="card-body">
         <Link to={`/${title.id}`}>
