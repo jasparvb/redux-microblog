@@ -4,7 +4,7 @@ import NewPostForm from "./NewPostForm";
 import Comment from "./PostComment";
 import PostCommentForm from "./PostCommentForm";
 import { useSelector, useDispatch } from "react-redux";
-import { getPostAPI, removePostAPI, addCommentAPI, removeCommentAPI } from './actions';
+import { getPostAPI, removePostAPI, addCommentAPI, removeCommentAPI, voteAPI } from './actions';
 
 
 function PostDetails() {
@@ -46,6 +46,10 @@ function PostDetails() {
         editMode ? setEditMode(false) : setEditMode(true);
     }
 
+    function vote(direction, id) {
+        dispatch(voteAPI(id, direction));
+    }
+    
     if(editMode) {
         return <NewPostForm postId={postId} post={post} />;
     }
@@ -62,7 +66,14 @@ function PostDetails() {
                 <h3 className="card-title d-flex justify-content-between">
                     {post.title}
                 </h3>
-                <h4>{post.description}</h4>
+                    <h4>{post.description}</h4>
+                <div className="float-right mx-3">
+                    <small>{post.votes} votes</small>
+                    <i className="fas fa-thumbs-up text-success ml-2"
+                        onClick={e => vote("up", post.id)} />
+                    <i className="fas fa-thumbs-down text-danger ml-2"
+                        onClick={e => vote("down", post.id)} />
+                </div>
                 <p>{post.body}</p>
                 <hr/>
                 <h3>Comments</h3>
