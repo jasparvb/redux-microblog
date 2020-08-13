@@ -2,7 +2,8 @@ import {
   ADD_POST, 
   UPDATE_POST, 
   REMOVE_POST, 
-  LOAD_TITLES
+  LOAD_TITLES,
+  VOTE_POST,
 } from "../actionTypes";
 
 function makeTitle({id, title, description, votes}) {
@@ -34,6 +35,11 @@ function rootReducer(state = [], action) {
     case REMOVE_POST: {
       return state.filter(title => title.id !== action.postId);
     }
+    case VOTE_POST:
+      return state.map(
+          title => title.id === action.id ? { ...title, votes: action.votes } : title)
+          .sort((a, b) => b.votes - a.votes);
+
     default:
       return state;
   }

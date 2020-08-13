@@ -4,7 +4,8 @@ import {
   REMOVE_POST, 
   ADD_COMMENT, 
   REMOVE_COMMENT,  
-  LOAD_POST 
+  LOAD_POST,
+  VOTE_POST 
 } from "../actionTypes";
 
 
@@ -50,7 +51,15 @@ function rootReducer(state = {}, action) {
             comments: state[action.postId].comments.filter(c => c.id !== action.id)
         }
       };  
-    default:
+    case VOTE_POST:
+      return {
+        ...state,
+        [action.id]: {
+          ...state[action.id],
+          votes: action.votes
+        }
+      };  
+      default:
       return state;
   }
 }

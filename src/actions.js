@@ -116,7 +116,7 @@ export function gotPost(post) {
 export function voteAPI(id, direction) {
   return async function(dispatch) {
     let res = await axios.post(`${API_URL}/posts/${id}/vote/${direction}`);
-    dispatch(votePost(id, res.data));
+    dispatch(votePost(id, res.data.votes));
   };
 }
 
