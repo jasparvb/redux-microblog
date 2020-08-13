@@ -1,4 +1,4 @@
-import { ADD_POST, UPDATE_POST, REMOVE_POST, ADD_COMMENT, REMOVE_COMMENT, LOAD_TITLES, LOAD_POST } from "./actionTypes";
+import { ADD_POST, UPDATE_POST, REMOVE_POST, ADD_COMMENT, REMOVE_COMMENT, LOAD_TITLES, LOAD_POST, VOTE_POST } from "./actionTypes";
 import axios from 'axios';
 
 const API_URL = 'http://localhost:5000/api';
@@ -110,5 +110,20 @@ export function gotPost(post) {
   return {
     type: LOAD_POST,
     post
+  };
+}
+
+export function voteAPI(id, direction) {
+  return async function(dispatch) {
+    let res = await axios.post(`${API_URL}/posts/${id}/vote/${direction}`);
+    dispatch(votePost(id, res.data));
+  };
+}
+
+export function votePost(id, votes) {
+  return {
+    type: VOTE_POST,
+    id,
+    votes
   };
 }
