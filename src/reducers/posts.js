@@ -54,10 +54,7 @@ function rootReducer(state = {}, action) {
     case VOTE_POST:
       return {
         ...state,
-        [action.id]: {
-          ...state[action.id],
-          votes: action.votes
-        }
+        [action.post.id]: action.post
       };  
       default:
       return state;

@@ -37,7 +37,7 @@ function rootReducer(state = [], action) {
     }
     case VOTE_POST:
       return state.map(
-          title => title.id === action.id ? { ...title, votes: action.votes } : title)
+          title => title.id === action.post.id ? { ...title, votes: action.votes } : title)
           .sort((a, b) => b.votes - a.votes);
 
     default:

@@ -113,17 +113,18 @@ export function gotPost(post) {
   };
 }
 
-export function voteAPI(id, direction) {
+export function voteAPI(postId, direction) {
   return async function(dispatch) {
-    let res = await axios.post(`${API_URL}/posts/${id}/vote/${direction}`);
-    dispatch(votePost(id, res.data.votes));
+    let res = await axios.post(`${API_URL}/posts/${postId}/vote/${direction}`);
+    let resPost = await axios.get(`${API_URL}/posts/${postId}`);
+    dispatch(votePost(resPost.data, res.data.votes));
   };
 }
 
-export function votePost(id, votes) {
+export function votePost(post, votes) {
   return {
     type: VOTE_POST,
-    id,
+    post,
     votes
   };
 }
